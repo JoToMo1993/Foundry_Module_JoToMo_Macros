@@ -15,8 +15,8 @@ Hooks.once("ready", async () => {
 
 const MACROS_CONFIG = [{
     name: 'Gold',
-    version: '1.0.0',
-    image: 'assets/images/gold.png',
+    version: '1.0.1',
+    image: 'gold.png',
     content: 'gold.js',
 }
 ]
@@ -36,7 +36,7 @@ async function syncCompendiumMacros(pack) {
                 // update
                 await existing.update({
                     command: await loadMacroSource(macroConfig.content),
-                    img: macroConfig.image,
+                    img: `modules/jotomo_macros/assets/images/${macroConfig.image}`,
                     flags: {
                         'jotomo_macros': {
                             'version': macroConfig.version,
@@ -50,7 +50,7 @@ async function syncCompendiumMacros(pack) {
                 name: macroConfig.name,
                 type: 'script',
                 command: await loadMacroSource(macroConfig.content),
-                img: macroConfig.image,
+                img: `modules/jotomo_macros/assets/images/${macroConfig.image}`,
                 flags: {
                     'jotomo_macros': {
                         'version': macroConfig.version,
