@@ -6,7 +6,7 @@ Hooks.once("ready", async () => {
         locked: false
     });
 
-    await syncCompendiumMacros();
+    await syncCompendiumMacros(pack);
 
     await pack.configure({
         locked: false
@@ -17,7 +17,7 @@ const MACROS_CONFIG = [{
     name: 'Gold',
     version: '1.0.0',
     image: 'assets/images/gold.png',
-    content: 'scripts/macros/gold.js',
+    content: 'gold.js',
 }
 ]
 
