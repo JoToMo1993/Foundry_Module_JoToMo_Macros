@@ -18,6 +18,41 @@ const MACROS_CONFIG = [{
     version: '1.0.1',
     image: 'gold.png',
     content: 'gold.js',
+}, {
+    name: 'Minions Attack',
+    version: '1.0.0',
+    image: '',
+    content: 'minions_attack_3inputs.js',
+}, {
+    name: 'Pythagoras',
+    version: '1.0.0',
+    image: '',
+    content: 'pythagoras.js',
+}, {
+    name: 'Conditions',
+    version: '1.0.0',
+    image: '',
+    content: 'conditions_v2.js',
+}, {
+    name: 'Weather',
+    version: '1.0.0',
+    image: '',
+    content: 'weather/weather_card_12.js',
+}, {
+    name: 'Travel Checks',
+    version: '1.0.0',
+    image: '',
+    content: 'checks/travel_checks.js',
+}, {
+    name: 'Checks',
+    version: '1.0.0',
+    image: '',
+    content: 'checks/checks.js',
+}, {
+    name: 'Multi Checks',
+    version: '1.0.0',
+    image: '',
+    content: 'checks/multi_checks_multi_types.js',
 }
 ]
 
