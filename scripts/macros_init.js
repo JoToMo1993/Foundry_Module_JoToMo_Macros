@@ -69,29 +69,36 @@ async function syncCompendiumMacros(pack) {
 
             if (currentVersion < macroConfig.version) {
                 // update
-                await existing.update({
+                const content = {
                     command: await loadMacroSource(macroConfig.content),
-                    img: `modules/jotomo_macros/assets/images/${macroConfig.image}`,
                     flags: {
                         'jotomo_macros': {
                             'version': macroConfig.version,
                         }
                     }
-                })
+                };
+                if (!!macroConfig.image) {
+                    content.img = `modules/jotomo_macros/assets/images/${macroConfig.image}`;
+                }
+
+                await existing.update(content);
             }
         } else {
             // create
-            await Macro.create({
+            const content = {
                 name: macroConfig.name,
                 type: 'script',
                 command: await loadMacroSource(macroConfig.content),
-                img: `modules/jotomo_macros/assets/images/${macroConfig.image}`,
                 flags: {
                     'jotomo_macros': {
                         'version': macroConfig.version,
                     }
                 }
-            }, {
+            };
+            if (!!macroConfig.image) {
+                content.img = `modules/jotomo_macros/assets/images/${macroConfig.image}`;
+            }
+            await Macro.create(content, {
                 pack: 'jotomo_macros.jotomo-macros',
             })
         }
