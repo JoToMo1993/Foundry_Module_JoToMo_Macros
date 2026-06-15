@@ -9,7 +9,7 @@ Hooks.once("ready", async () => {
     await syncCompendiumMacros(pack);
 
     await pack.configure({
-        locked: false
+        locked: true
     });
 });
 
