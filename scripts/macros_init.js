@@ -100,9 +100,7 @@ async function syncCompendiumMacros(folder) {
             if (!!macroConfig.image) {
                 content.img = `modules/jotomo_macros/assets/images/${macroConfig.image}`;
             }
-            await Macro.create(content, {
-                pack: 'jotomo_macros.jotomo-macros',
-            })
+            await Macro.create(content)
         }
     }
 }
