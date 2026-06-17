@@ -82,6 +82,7 @@ async function syncCompendiumMacros(folder) {
                     content.img = `modules/jotomo_macros/assets/images/${macroConfig.image}`;
                 }
 
+                console.log('JoToMo macros', 'update macro', content);
                 await existing.update(content);
             }
         } else {
@@ -100,6 +101,7 @@ async function syncCompendiumMacros(folder) {
             if (!!macroConfig.image) {
                 content.img = `modules/jotomo_macros/assets/images/${macroConfig.image}`;
             }
+            console.log('JoToMo macros', 'create macro', content);
             await Macro.create(content)
         }
     }
