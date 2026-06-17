@@ -11,7 +11,7 @@ const MACROS_CONFIG = [
         content: 'minions_attack_3inputs.js',
     }, {
         name: 'Pythagoras',
-        version: '1.0.0',
+        version: '1.0.1',
         image: 'pythagoras.webp',
         content: 'pythagoras.js',
     }, {

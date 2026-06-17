@@ -8,6 +8,7 @@
 //-------------------------------------------------------------------------------------
 
 const MacroName = 'pythagoras_macro';
+console.log(MacroName);
 await game.settings.register(MacroName, 'speed', {
     name: 'Restbewegung',
     hint: 'Stores the remaining movement in feet',
