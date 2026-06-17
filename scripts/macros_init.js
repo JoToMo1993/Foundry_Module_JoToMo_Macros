@@ -1,21 +1,3 @@
-Hooks.once("ready", async () => {
-    if (!game.user.isGM) return;
-
-    console.log("Initialize JoToMo Macros");
-    let folder = game.folders.find(
-        f => f.type === "Macro" && f.name === "JoToMo Macros"
-    );
-    if (!folder) {
-        folder = await Folder.create({
-            name: "JoToMo Macros",
-            type: "Macro"
-        });
-    }
-
-    await syncMacros(folder);
-    console.log("Finished JoToMo Macros");
-});
-
 const MACROS_CONFIG = [
     {
         name: 'Gold',
@@ -60,11 +42,36 @@ const MACROS_CONFIG = [
     }
 ]
 
-async function syncMacros(folder) {
+Hooks.once("ready", async () => {
+    if (!game.user.isGM) return;
+
+    console.log("Initialize JoToMo Macros");
+    let folder = game.folders.find(
+        f => f.type === "Macro" && f.name === "JoToMo Macros"
+    );
+    if (!folder) {
+        folder = await Folder.create({
+            name: "JoToMo Macros",
+            type: "Macro"
+        });
+    }
+
     for (const macroConfig of MACROS_CONFIG) {
         const existing = game.macros.find(
             m => m.name === macroConfig.name && m.folder?.id === folder.id
         );
+
+        async function loadMacroSource(filename) {
+            const response = await fetch(
+                `modules/jotomo_macros/scripts/macros/${filename}`
+            );
+
+            if (!response.ok) {
+                throw new Error(`Failed to load macro: ${filename}`);
+            }
+
+            return response.text();
+        }
 
         if (existing) {
             // update
@@ -107,16 +114,5 @@ async function syncMacros(folder) {
             await Macro.create(content)
         }
     }
-}
-
-async function loadMacroSource(filename) {
-    const response = await fetch(
-        `modules/jotomo_macros/scripts/macros/${filename}`
-    );
-
-    if (!response.ok) {
-        throw new Error(`Failed to load macro: ${filename}`);
-    }
-
-    return response.text();
-}
+    console.log("Finished JoToMo Macros");
+});
