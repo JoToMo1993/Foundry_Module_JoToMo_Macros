@@ -1,6 +1,7 @@
 Hooks.once("ready", async () => {
     if (!game.user.isGM) return;
 
+    console.log("Initialize JoToMo Macros");
     let folder = game.folders.find(
         f => f.type === "Macro" && f.name === "JoToMo Macros"
     );
@@ -11,7 +12,8 @@ Hooks.once("ready", async () => {
         });
     }
 
-    await syncCompendiumMacros(folder);
+    await syncMacros(folder);
+    console.log("Finished JoToMo Macros");
 });
 
 const MACROS_CONFIG = [
@@ -58,7 +60,7 @@ const MACROS_CONFIG = [
     }
 ]
 
-async function syncCompendiumMacros(folder) {
+async function syncMacros(folder) {
     for (const macroConfig of MACROS_CONFIG) {
         const existing = game.macros.find(
             m => m.name === macroConfig.name && m.folder?.id === folder.id
