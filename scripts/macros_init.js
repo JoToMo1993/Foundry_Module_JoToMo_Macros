@@ -1,16 +1,17 @@
 Hooks.once("ready", async () => {
     if (!game.user.isGM) return;
 
-    const pack = game.packs.get("jotomo_macros.jotomo-macros");
-    await pack.configure({
-        locked: false
-    });
+    let folder = game.folder.find(
+        f => f.type === "Macro" && f.name === "JoToMo Macros"
+    );
+    if (!folder) {
+        folder = await Folder.create({
+            name: "JoToMo Macros",
+            type: "Macro"
+        });
+    }
 
-    await syncCompendiumMacros(pack);
-
-    await pack.configure({
-        locked: true
-    });
+    await syncCompendiumMacros(folder);
 });
 
 const MACROS_CONFIG = [
@@ -57,11 +58,10 @@ const MACROS_CONFIG = [
     }
 ]
 
-async function syncCompendiumMacros(pack) {
-    const documents = await pack.getDocuments();
+async function syncCompendiumMacros(folder) {
     for (const macroConfig of MACROS_CONFIG) {
-        const existing = documents.find(
-            m => m.name === macroConfig.name
+        const existing = game.macros.find(
+            m => m.name === macroConfig.name && m.folder?.id === folder.id
         );
 
         if (existing) {
@@ -89,6 +89,7 @@ async function syncCompendiumMacros(pack) {
             const content = {
                 name: macroConfig.name,
                 type: 'script',
+                folder: folder.id,
                 command: await loadMacroSource(macroConfig.content),
                 flags: {
                     'jotomo_macros': {

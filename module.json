@@ -7,26 +7,13 @@
       "name": "JoToMo"
     }
   ],
-  "version": "0.0.7",
+  "version": "0.0.8",
   "compatibility": {
     "minimum": "14",
     "verified": "14"
   },
   "scripts": [
     "scripts/macros_init.js"
-  ],
-  "packs": [
-    {
-      "name": "jotomo-macros",
-      "label": "JoToMo Macros",
-      "path": "packs/jotomo-macros",
-      "type": "Macro",
-      "ownership": {
-        "PLAYER": "OBSERVER",
-        "ASSISTANT": "OWNER"
-      },
-      "flags": {}
-    }
   ],
   "manifest": "https://raw.githubusercontent.com/JoToMo1993/Foundry_Module_JoToMo_Macros/refs/heads/main/module.json",
   "download": "https://github.com/JoToMo1993/Foundry_Module_JoToMo_Macros/archive/refs/heads/main.zip"
