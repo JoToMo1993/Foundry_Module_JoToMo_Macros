@@ -1,7 +1,7 @@
 Hooks.once("ready", async () => {
     if (!game.user.isGM) return;
 
-    let folder = game.folder.find(
+    let folder = game.folders.find(
         f => f.type === "Macro" && f.name === "JoToMo Macros"
     );
     if (!folder) {
