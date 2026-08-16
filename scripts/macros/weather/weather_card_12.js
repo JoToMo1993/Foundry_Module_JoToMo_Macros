@@ -285,12 +285,13 @@ const AdditionalInfoByWeatherWindAndLocation = [
     },
     {
         weather: ["Dichter Nebel"],
-        additionalInfo: "<p>Kreaturen in diesem Bereich haben Disadvantage bei allen Perception Checks.</p>" +
-            "<p>Alles innerhalb des Bereichs mit starkem Regen/starkem Schneefall ist &Reference[Lightly Obscured apply=false].</p>"
+        additionalInfo: "<p>Disadvantage auf Perceptionchecks, die sich auf Sehen verlassen.</p>" +
+            "<p>Kreaturen, die 15ft. oder weiter voneinander entfernt sind, gelten als heavily obscured zueinander.</p>"
     },
     {
         weather: ["Starker Schneefall", "Starker Regen", "Starkes Gewitter", "Monsun"],
-        additionalInfo: "<p>Disadvantage auf Perceptionchecks, die sich auf Hören und Sehen verlassen.</p>"
+        additionalInfo: "<p>Kreaturen in diesem Bereich haben Disadvantage bei allen Perception Checks.</p>" +
+            "<p>Alles innerhalb des Bereichs mit starkem Regen/starkem Schneefall ist &Reference[Lightly Obscured apply=false].</p>"
     },
     {
         weather: ["Gewitter", "Starkes Gewitter", "Starker Schneefall", "Starker Regen", "Monsun", "Dichter Nebel"],
