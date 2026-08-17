@@ -21,7 +21,7 @@ const MACROS_CONFIG = [
         content: 'conditions_v2.js',
     }, {
         name: 'Weather',
-        version: '1.0.1',
+        version: '1.0.2',
         image: 'weather.webp',
         content: 'weather/weather_card_12.js',
     }, {

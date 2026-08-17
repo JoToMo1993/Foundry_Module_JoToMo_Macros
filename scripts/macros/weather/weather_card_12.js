@@ -250,13 +250,13 @@ const TempAdjustments = {
 
 const MaxTempForTooCold = -18;
 const AdditionalInfo_TooCold = "<p>Constitution Savingthrow DC 10 am Ende des Tages.<br/>" +
-    "Bei Fehlschlag: +1 Exhaustion. Diese Exhaustion kann nur mit Wärme entfernt werden. 1 Stunde Wärme entfernt 1 Exhaustiongrad.<br/>" +
-    "Automatischer Erfolg bei: Resistenz/Immunität gegen Kälteschaden, angepasster Ausrüstung oder natürlicher Anpassung.</p>";
+    "Bei Fehlschlag: +1 &Reference[Exhaustion apply=false]. Diese Exhaustion kann nur mit Wärme entfernt werden. 1 Stunde Wärme entfernt 1 Exhaustiongrad.<br/>" +
+    "Automatischer Erfolg bei: &Reference[Resistance apply=false]/&Reference[Immunity apply=false] gegen Kälteschaden, angepasster Ausrüstung oder natürlicher Anpassung.</p>";
 
 const MinTempForTooHot = 38;
 const AdditionalInfo_TooHot = "<p>Constitution Savingthrow DC 10 am Ende des Tages. Jeder weitere Tag erhöht die DC um +1.<br/>" +
-    "Bei Fehlschlag: +1 Exhaustion mit mittelschwerer oder schwerer Rüstung. Diese Exhaustion reduziert sich bei Eis oder kühleren Temperaturen um 1 täglich.<br/>" +
-    "Automatischer Erfolg bei: Resistenz/Immunität gegen Firedamage oder natürlicher Anpassung.<br/>" +
+    "Bei Fehlschlag: +1 &Reference[Exhaustion apply=false] mit mittelschwerer oder schwerer Rüstung. Diese Exhaustion reduziert sich bei Eis oder kühleren Temperaturen um 1 täglich.<br/>" +
+    "Automatischer Erfolg bei: &Reference[Resistance apply=false]/&Reference[Immunity apply=false] gegen Firedamage oder natürlicher Anpassung.<br/>" +
     "Der Bedarf an der täglichen Trinkwassermenge verdoppelt sich.</p>";
 
 const AdditionalInfoByWeatherWindAndLocation = [
@@ -269,8 +269,8 @@ const AdditionalInfoByWeatherWindAndLocation = [
         wind: ["Sturmwind", "Orkan"],
         additionalInfo: "<p>Sturmwind:" +
             "<ul>" +
-            "<li>Disadvantage bei Angriffswürfen mit Waffen.</li>" +
-            "<li>Disadvantage auf Perceptionchecks, die sich auf das Hören verlassen.</li>" +
+            "<li>&Reference[Disadvantage apply=false] bei Angriffswürfen mit Waffen.</li>" +
+            "<li>&Reference[Disadvantage apply=false] auf Perceptionchecks, die sich auf das Hören verlassen.</li>" +
             "<li>Offene Flammen werden gelöscht</li>" +
             "<li>Vertreibt Rauch und Nebel</li>" +
             "<li>Fliegende Kreaturen, die nicht-magisch fliegen, müssen am Ende des Zuges landen oder stürzen ab</li>" +
@@ -285,13 +285,13 @@ const AdditionalInfoByWeatherWindAndLocation = [
     },
     {
         weather: ["Dichter Nebel"],
-        additionalInfo: "<p>Disadvantage auf Perceptionchecks, die sich auf Sehen verlassen.</p>" +
-            "<p>Kreaturen, die 15ft. oder weiter voneinander entfernt sind, gelten als heavily obscured zueinander.</p>"
+        additionalInfo: "<p>&Reference[Disadvantage apply=false] auf Perceptionchecks, die sich auf Sehen verlassen.</p>" +
+            "<p>Kreaturen, die 15ft. oder weiter voneinander entfernt sind, gelten als &Reference[Heavily Obscured apply=false] zueinander.</p>"
     },
     {
-        weather: ["Starker Schneefall", "Starker Regen", "Starkes Gewitter", "Monsun"],
-        additionalInfo: "<p>Kreaturen in diesem Bereich haben Disadvantage bei allen Perception Checks.</p>" +
-            "<p>Alles innerhalb des Bereichs mit starkem Regen/starkem Schneefall ist &Reference[Lightly Obscured apply=false].</p>"
+        weather: ["Starker Schneefall"],
+        additionalInfo: "<p>Kreaturen in diesem Bereich haben &Reference[Disadvantage apply=false] bei allen Perception Checks.</p>" +
+            "<p>Alles innerhalb des Bereichs mit starkem Schneefall ist &Reference[Lightly Obscured apply=false].</p>"
     },
     {
         weather: ["Gewitter", "Starkes Gewitter", "Starker Schneefall", "Starker Regen", "Monsun", "Dichter Nebel"],
@@ -303,7 +303,9 @@ const AdditionalInfoByWeatherWindAndLocation = [
     },
     {
         weather: ["Starker Regen", "Starkes Gewitter", "Monsun"],
-        additionalInfo: "<p>Offene Flammen werden gelöscht.</p>"
+        additionalInfo: "<p>Kreaturen in diesem Bereich haben &Reference[Disadvantage apply=false] bei allen Perception Checks.</p>" +
+            "<p>Alles innerhalb des Bereichs mit starkem Regen ist &Reference[Lightly Obscured apply=false].</p>" +
+            "<p>Offene Flammen werden gelöscht.</p>"
     },
     {
         weather: ["Monsun"],
