@@ -251,12 +251,12 @@ const TempAdjustments = {
 const MaxTempForTooCold = -18;
 const AdditionalInfo_TooCold = "<p>Constitution Savingthrow DC 10 am Ende des Tages.<br/>" +
     "Bei Fehlschlag: +1 &Reference[Exhaustion apply=false]. Diese Exhaustion kann nur mit Wärme entfernt werden. 1 Stunde Wärme entfernt 1 Exhaustiongrad.<br/>" +
-    "Automatischer Erfolg bei: &Reference[Resistance apply=false] / &Reference[Immunity apply=false] gegen Kälteschaden, angepasster Ausrüstung oder natürlicher Anpassung.</p>";
+    "Automatischer Erfolg bei: &Reference[Resistance apply=false]/Immunity gegen Kälteschaden, angepasster Ausrüstung oder natürlicher Anpassung.</p>";
 
 const MinTempForTooHot = 38;
 const AdditionalInfo_TooHot = "<p>Constitution Savingthrow DC 10 am Ende des Tages. Jeder weitere Tag erhöht die DC um +1.<br/>" +
     "Bei Fehlschlag: +1 &Reference[Exhaustion apply=false] mit mittelschwerer oder schwerer Rüstung. Diese Exhaustion reduziert sich bei Eis oder kühleren Temperaturen um 1 täglich.<br/>" +
-    "Automatischer Erfolg bei: &Reference[Resistance apply=false] / &Reference[Immunity apply=false] gegen Firedamage oder natürlicher Anpassung.<br/>" +
+    "Automatischer Erfolg bei: &Reference[Resistance apply=false]/Immunity gegen Firedamage oder natürlicher Anpassung.<br/>" +
     "Der Bedarf an der täglichen Trinkwassermenge verdoppelt sich.</p>";
 
 const AdditionalInfoByWeatherWindAndLocation = [
