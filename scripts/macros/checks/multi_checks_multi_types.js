@@ -2,17 +2,14 @@
 // This part is configuration, you can make changes here, but make sure they are the same across all occurances.
 //-------------------------------------------------------------------------------------
 
-const IconHtml = '<img src="https://benny.decker.games/systems/dnd5e/icons/svg/ability-score-improvement.svg" alt="" style="border: none; width: var(--icon-width, var(--icon-size, 1em)); height: var(--icon-height, var(--icon-size, 1em));"/>'
-const ToolIconHtml = '<i class="fas fa-hammer"></i>';
-
 const Types = {
-    "skill": {text: "Skill", icon: IconHtml},
-    "save": {text: "Save", icon: '<i class="fas fa-shield-heart"></i>'},
-    "check": {text: "Ability", icon: IconHtml},
-    "tool": {text: "Artisan’s Tools", icon: ToolIconHtml},
-    "other-tools": {text: "Other Tools", icon: ToolIconHtml},
-    "gaming-set": {text: "Gaming Set", icon: ToolIconHtml},
-    "musical-instrument": {text: "Musical Instrument", icon: ToolIconHtml},
+    "skill": {text: "Skill"},
+    "save": {text: "Save"},
+    "check": {text: "Ability"},
+    "tool": {text: "Artisan’s Tools"},
+    "other-tools": {text: "Other Tools"},
+    "gaming-set": {text: "Gaming Set"},
+    "musical-instrument": {text: "Musical Instrument"},
 }
 
 const OptionsPerType = {
@@ -204,15 +201,6 @@ await game.settings.register('multi_checks_multi_types', 'dc', {
     filePicker: false,
     requiresReload: false,
 });
-const DataTagByType = {
-    "skill": (value) => `data-skill="${value}"`,
-    "save": (ignored) => ``,
-    "check": (ignored) => ``,
-    "tool": (value) => `data-tool="${value}"`,
-    "other-tools": (value) => `data-tool="${value}"`,
-    "gaming-set": (value) => `data-tool="${value}"`,
-    "musical-instrument": (value) => `data-tool="${value}"`,
-}
 const TypeFromTypeGroup = {
     "skill": 'skill',
     "save": 'save',
@@ -396,44 +384,28 @@ async function dialogSubmit() {
 }
 
 function printCheck(checks) {
-    let buttons = '';
-
-    checks.forEach(check => {
-        buttons += `
-            <div class="card-buttons">
-                <button
-                    data-type="${TypeFromTypeGroup[check.type]}"
-                    data-format="long"
-                    ${DataTagByType[check.type](check.optionValue)}
-                    ${check.dc !== '' ? `data-dc="${check.dc}"` : ''}
-                    data-ability="${OptionTypeValueToAbility[check.optionValue].ability}"
-                    data-action="rollRequest"
-                    data-visibility="all">
-                    <span class="visible-dc">
-                        ${Types[check.type].icon}
-                        ${check.dc !== '' ? `DC ${check.dc} ` : ''}${OptionTypeValueToAbility[check.optionValue].text}
-                    </span>
-                    <span class="hidden-dc">
-                        ${Types[check.type].icon}
-                        ${OptionTypeValueToAbility[check.optionValue].text}
-                    </span>
-                </button>
-            </div>
-        `;
+    const buttons = checks.map((check) => {
+        const button = {
+            type: TypeFromTypeGroup[check.type],
+            dc: Number(check.dc),
+            format: 'short',
+            ability: OptionTypeValueToAbility[check.optionValue].ability,
+        };
+        if (button.type === "tool") {
+            button.usingTool = true;
+            button.tool = check.optionValue;
+        } else if (button.type === "skill") {
+            button.skill = check.optionValue;
+        }
+        return button;
     });
 
-    let message = `
-            <div class="dnd5e2 chat-card request-card">
-                ${buttons}
-            </div>
-        `;
-
-    let chatData = {
-        user: game.user.id,
-        flavor: 'Roll Request',
-        content: message,
-        blind: false
-    };
-
-    ChatMessage.create(chatData, {});
+    const MessageClass = getDocumentClass("ChatMessage");
+    MessageClass.create({
+        flavor: _loc("EDITOR.DND5E.Inline.RollRequest"),
+        speaker: MessageClass.getSpeaker({user: game.user}),
+        system: {broadcast: true, buttons},
+        type: "prompt",
+        user: game.user.id
+    });
 }

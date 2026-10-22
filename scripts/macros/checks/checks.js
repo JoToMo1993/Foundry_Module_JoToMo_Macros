@@ -2,17 +2,14 @@
 // This part is configuration, you can make changes here, but make sure they are the same across all occurances.
 //-------------------------------------------------------------------------------------
 
-const IconHtml = '<img src="https://benny.decker.games/systems/dnd5e/icons/svg/ability-score-improvement.svg" alt="" style="border: none; width: var(--icon-width, var(--icon-size, 1em)); height: var(--icon-height, var(--icon-size, 1em));"/>'
-const ToolIconHtml = '<i class="fas fa-hammer"></i>';
-
 const Types = {
-    "skill": {text: "Skill", icon: IconHtml},
-    "save": {text: "Save", icon: '<i class="fas fa-shield-heart"></i>'},
-    "check": {text: "Ability", icon: IconHtml},
-    "tool": {text: "Artisan’s Tools", icon: ToolIconHtml},
-    "other-tools": {text: "Other Tools", icon: ToolIconHtml},
-    "gaming-set": {text: "Gaming Set", icon: ToolIconHtml},
-    "musical-instrument": {text: "Musical Instrument", icon: ToolIconHtml},
+    "skill": {text: "Skill"},
+    "save": {text: "Save"},
+    "check": {text: "Ability"},
+    "tool": {text: "Artisan’s Tools"},
+    "other-tools": {text: "Other Tools"},
+    "gaming-set": {text: "Gaming Set"},
+    "musical-instrument": {text: "Musical Instrument"},
 }
 
 const OptionsPerType = {
@@ -205,15 +202,6 @@ await game.settings.register(MacroName, 'dc', {
     filePicker: false,
     requiresReload: false,
 });
-const DataTagByType = {
-    "skill": (value) => `data-skill="${value}"`,
-    "save": (ignored) => ``,
-    "check": (ignored) => ``,
-    "tool": (value) => `data-tool="${value}"`,
-    "other-tools": (value) => `data-tool="${value}"`,
-    "gaming-set": (value) => `data-tool="${value}"`,
-    "musical-instrument": (value) => `data-tool="${value}"`,
-}
 const TypeFromTypeGroup = {
     "skill": 'skill',
     "save": 'save',
@@ -225,42 +213,29 @@ const TypeFromTypeGroup = {
 }
 
 function printCheck(formdata) {
-    const type = formdata.type;
-    const optionValue = formdata.optionValue;
-    const dc = formdata.dc;
-    let message =
-        `
-            <div class="dnd5e2 chat-card request-card">
-                <div class="card-buttons">
-                    <button
-                        data-type="${TypeFromTypeGroup[type]}"
-                        data-format="long"
-                        ${DataTagByType[type](optionValue)}
-                        ${dc !== '' ? `data-dc="${dc}"` : ''}
-                        data-ability="${OptionTypeValueToAbility[optionValue].ability}"
-                        data-action="rollRequest"
-                        data-visibility="all">
-                        <span class="visible-dc">
-                            ${Types[type].icon}
-                            ${dc !== '' ? `DC ${dc} ` : ''}${OptionTypeValueToAbility[optionValue].text}
-                        </span>
-                        <span class="hidden-dc">
-                            ${Types[type].icon}
-                            ${OptionTypeValueToAbility[optionValue].text}
-                        </span>
-                    </button>
-                </div>
-            </div>
-        `;
+    const buttons = [{
+        type: TypeFromTypeGroup[type],
+        dc: Number(formdata.dc),
+        format: 'short',
+        ability: OptionTypeValueToAbility[formdata.optionValue].ability,
+    }];
+    buttons.forEach((button) => {
+        if (button.type === "tool") {
+            button.usingTool = true;
+            button.tool = formdata.optionValue;
+        } else if (button.type === "skill") {
+            button.skill = formdata.optionValue;
+        }
+    })
 
-    let chatData = {
-        user: game.user.id,
-        flavor: 'Roll Request',
-        content: message,
-        blind: false
-    };
-
-    ChatMessage.create(chatData);
+    const MessageClass = getDocumentClass("ChatMessage");
+    MessageClass.create({
+        flavor: _loc("EDITOR.DND5E.Inline.RollRequest"),
+        speaker: MessageClass.getSpeaker({user: game.user}),
+        system: {broadcast: true, buttons},
+        type: "prompt",
+        user: game.user.id
+    });
 }
 
 function typeCheck(typeKey) {

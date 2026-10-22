@@ -22,65 +22,31 @@ await game.settings.register(MacroName, 'dc', {
 });
 
 function printCheck(formdata) {
-    let message =
-        `
-            <div class="dnd5e2 chat-card request-card">
-                <header class="summary">
-                    <div class="name-stacked border">
-                        <span class="title">Navigation Check</span>
-                    </div>
-                </header>
-                <!-- Survival Button -->
-                <div class="card-buttons">
-                    <button
-                        data-type="skill"
-                        data-format="long"
-                        data-skill="sur"
-                        ${formdata.dc !== '' ? `data-dc="${formdata.dc}"` : ''}
-                        data-ability="wis"
-                        data-action="rollRequest"
-                        data-visibility="all">
-                        <span class="visible-dc">
-                            ${IconHtml}
-                            ${formdata.dc !== '' ? `DC ${formdata.dc} ` : ''}Wisdom (Survival)
-                        </span>
-                        <span class="hidden-dc">
-                            ${IconHtml}
-                            Wisdom (Survival)
-                        </span>
-                    </button>
-                </div>
-                <!-- NavTool Button -->
-                <div class="card-buttons">
-                    <button
-                        data-type="tool"
-                        data-format="long"
-                        data-tool="navg"
-                        ${dc !== '' ? `data-dc="${formdata.dc}"` : ''}
-                        data-ability="wis"
-                        data-action="rollRequest"
-                        data-visibility="all">
-                        <span class="visible-dc">
-                            ${ToolIconHtml}
-                            ${formdata.dc !== '' ? `DC ${formdata.dc} ` : ''}Wisdom (Navigator’s Tools)
-                        </span>
-                        <span class="hidden-dc">
-                            ${ToolIconHtml}
-                            Wisdom (Navigator’s Tools)
-                        </span>
-                    </button>
-                </div>
-            </div>
-        `;
+    const buttons = [
+        {
+            type: 'skill',
+            dc: Number(formdata.dc),
+            format: 'short',
+            ability: 'wis',
+            skill: 'sur'
+        },
+        {
+            type: 'tool',
+            dc: Number(formdata.dc),
+            format: 'short',
+            ability: 'wis',
+            tool: 'navg'
+        }
+    ];
 
-    let chatData = {
-        user: game.user.id,
-        flavor: 'Roll Request',
-        content: message,
-        blind: false
-    };
-
-    ChatMessage.create(chatData);
+    const MessageClass = getDocumentClass("ChatMessage");
+    MessageClass.create({
+        flavor: _loc("EDITOR.DND5E.Inline.RollRequest"),
+        speaker: MessageClass.getSpeaker({user: game.user}),
+        system: {broadcast: true, buttons},
+        type: "prompt",
+        user: game.user.id
+    });
 }
 
 const popupTemplate = `

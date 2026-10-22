@@ -26,17 +26,17 @@ const MACROS_CONFIG = [
         content: 'weather/weather_card_12.js',
     }, {
         name: 'Travel Checks',
-        version: '1.0.0',
+        version: '1.1.0',
         image: 'travel_checks.webp',
         content: 'checks/travel_checks.js',
     }, {
         name: 'Checks',
-        version: '1.0.0',
+        version: '1.1.0',
         image: 'checks.svg',
         content: 'checks/checks.js',
     }, {
         name: 'Multi Checks',
-        version: '1.0.0',
+        version: '1.1.0',
         image: 'multi_checks.svg',
         content: 'checks/multi_checks_multi_types.js',
     }
