@@ -31,7 +31,7 @@ const MACROS_CONFIG = [
         content: 'checks/travel_checks.js',
     }, {
         name: 'Checks',
-        version: '1.1.0',
+        version: '1.1.1',
         image: 'checks.svg',
         content: 'checks/checks.js',
     }, {

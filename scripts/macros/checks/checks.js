@@ -214,7 +214,7 @@ const TypeFromTypeGroup = {
 
 function printCheck(formdata) {
     const buttons = [{
-        type: TypeFromTypeGroup[type],
+        type: TypeFromTypeGroup[formdata.type],
         dc: Number(formdata.dc),
         format: 'short',
         ability: OptionTypeValueToAbility[formdata.optionValue].ability,
