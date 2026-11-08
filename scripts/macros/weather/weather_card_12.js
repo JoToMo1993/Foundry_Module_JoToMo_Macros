@@ -534,7 +534,7 @@ const MacroName = 'weather_macro';
 await game.settings.register(MacroName, 'location', {
     name: 'Location',
     hint: 'Stores the location entered previously',
-    scope: 'client',
+    scope: 'user',
     config: false,
     type: String,
     default: 'Moderate',
@@ -544,7 +544,7 @@ await game.settings.register(MacroName, 'location', {
 await game.settings.register(MacroName, 'season', {
     name: 'Season',
     hint: 'Stores the season entered previously',
-    scope: 'client',
+    scope: 'user',
     config: false,
     type: String,
     default: 'Spring',
@@ -554,7 +554,7 @@ await game.settings.register(MacroName, 'season', {
 await game.settings.register(MacroName, 'area', {
     name: 'Area',
     hint: 'Stores the area entered previously',
-    scope: 'client',
+    scope: 'user',
     config: false,
     type: String,
     default: 'Land',
@@ -564,7 +564,7 @@ await game.settings.register(MacroName, 'area', {
 await game.settings.register(MacroName, 'showDice', {
     name: 'Show Dice',
     hint: 'Stores the show dice selection entered previously',
-    scope: 'client',
+    scope: 'user',
     config: false,
     type: Boolean,
     default: false,
@@ -574,7 +574,7 @@ await game.settings.register(MacroName, 'showDice', {
 await game.settings.register(MacroName, 'date', {
     name: 'Date',
     hint: 'Stores the date entered previously',
-    scope: 'client',
+    scope: 'user',
     config: false,
     type: String,
     default: '',
@@ -584,7 +584,7 @@ await game.settings.register(MacroName, 'date', {
 await game.settings.register(MacroName, 'lastWeather', {
     name: 'Last Weather',
     hint: 'Stores the last result',
-    scope: 'client',
+    scope: 'user',
     config: false,
     type: Object,
     default: {},
