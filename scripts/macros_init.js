@@ -41,7 +41,7 @@ const MACROS_CONFIG = [
         content: 'checks/multi_checks_multi_types.js',
     }, {
         name: 'After Session Notes',
-        version: '1.0.0',
+        version: '1.0.1',
         image: 'session_notes.webp',
         content: 'after_session_notes.js',
     }

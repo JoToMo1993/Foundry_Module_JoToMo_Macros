@@ -150,9 +150,7 @@ async function printNotes(formData) {
             Notizen:
         </h5>
         
-        <p>
         ${formData.notes}
-        </p>
         
         <hr>
         
