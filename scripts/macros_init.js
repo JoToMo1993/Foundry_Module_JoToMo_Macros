@@ -41,7 +41,7 @@ const MACROS_CONFIG = [
         content: 'checks/multi_checks_multi_types.js',
     }, {
         name: 'Special Checks',
-        version: '1.0.0',
+        version: '1.0.1',
         image: 'special_checks.svg',
         content: 'special_checks.js',
     }, {

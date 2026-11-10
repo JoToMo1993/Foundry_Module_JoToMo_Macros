@@ -1,7 +1,7 @@
 if (canvas.tokens.controlled.length > 0) {
     let d = new foundry.applications.api.DialogV2({
         window: {title: 'Special Checks'},
-        content: popupTemplate,
+        content: '',
         buttons: [{
             action: 'grable',
             icon: '<i class="fas fa-check"></i>',
