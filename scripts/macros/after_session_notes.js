@@ -124,10 +124,7 @@ let d = new foundry.applications.api.DialogV2({
         label: "Save!",
         default: true,
         callback: (_, button, __) => action(button, () => {
-            foundry.applications.api.DialogV2.prompt({
-                window: {title: 'Save'},
-                content: '<div>Die Änderungen sind gespeichert.</div>',
-            });
+            ui.notifications.info("Die Änderungen sind gespeichert.");
         })
     }, {
         action: 'cancel',
