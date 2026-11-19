@@ -43,7 +43,7 @@ const MACROS_CONFIG = [
         name: 'Special Checks',
         version: '1.0.1',
         image: 'special_checks.svg',
-        content: 'special_checks.js',
+        content: 'checks/special_checks.js',
     }, {
         name: 'After Session Notes',
         version: '1.0.3',
