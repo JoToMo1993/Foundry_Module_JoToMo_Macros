@@ -119,6 +119,17 @@ let d = new foundry.applications.api.DialogV2({
         default: true,
         callback: (_, button, __) => action(button, printNotes)
     }, {
+        action: 'save',
+        icon: '<i class="fas fa-check"></i>',
+        label: "Save!",
+        default: true,
+        callback: (_, button, __) => action(button, () => {
+            foundry.applications.api.DialogV2.prompt({
+                window: {title: 'Save'},
+                content: '<div>Die Änderungen sind gespeichert.</div>',
+            });
+        })
+    }, {
         action: 'cancel',
         icon: '<i class="fas fa-times"></i>',
         label: "Never mind",
