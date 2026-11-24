@@ -67,7 +67,7 @@ const popupTemplate = `
   <tr>
     <td><label for='notes'>Freitext Notizen</label></td>
     <td>
-        <textarea id="notes" name="notes" rows="5" cols="33">
+        <textarea id="notes" name="notes" rows="30" cols="80">
             ${game.settings.get(MacroName, 'notes')}
         </textarea>
     </td>
