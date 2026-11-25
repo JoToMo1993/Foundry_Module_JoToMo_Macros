@@ -31,11 +31,31 @@ await game.settings.register(MacroName, 'last_payout', {
 });
 await game.settings.register(MacroName, 'notes', {
     name: 'Free text notes',
-    hint: 'Stores sone free text notes',
+    hint: 'Stores some free text notes',
     scope: 'user',
     config: false,
     type: String,
     default: '',
+    filePicker: false,
+    requiresReload: false,
+});
+await game.settings.register(MacroName, 'notes_width', {
+    name: 'Notes Textarea last size',
+    hint: 'Stores the width of the Notes Textarea',
+    scope: 'user',
+    config: false,
+    type: Number,
+    default: 300,
+    filePicker: false,
+    requiresReload: false,
+});
+await game.settings.register(MacroName, 'notes_height', {
+    name: 'Free text notes',
+    hint: 'Stores the height of the Notes Textarea',
+    scope: 'user',
+    config: false,
+    type: Number,
+    default: 300,
     filePicker: false,
     requiresReload: false,
 });
@@ -49,6 +69,15 @@ await game.settings.register('weather_macro', 'lastWeather', {
     filePicker: false,
     requiresReload: false,
 });
+
+const editor = foundry.applications.elements.HTMLProseMirrorElement.create({
+    name: 'notes',
+    value: game.settings.get(MacroName, 'notes'),
+    toggled: false
+});
+editor.id = 'notes';
+editor.style.height = '100%';
+editor.style.width = '100%';
 
 const popupTemplate = `
 <table style="margin: 0">
@@ -66,10 +95,12 @@ const popupTemplate = `
   </tr>
   <tr>
     <td><label for='notes'>Freitext Notizen</label></td>
-    <td>
-        <textarea id="notes" name="notes" rows="30" cols="80">
-            ${game.settings.get(MacroName, 'notes')}
-        </textarea>
+    <td style="
+        min-height: 300px; min-width: 300px;
+        resize: both; overflow: auto;
+        height: ${game.settings.get(MacroName, 'notes_height')}px;
+        width: ${game.settings.get(MacroName, 'notes_width')}px;">
+        ${editor.outerHTML}
     </td>
   </tr>
 </table>
@@ -96,6 +127,16 @@ async function action(button, callback) {
 
         let val;
         if (!input.type || input.type.toLowerCase() !== 'checkbox') {
+            if (input.tagName.toUpperCase() === 'PROSE-MIRROR') {
+                input.save();
+                val = input.value;
+                const parent = input.parentElement;
+                if (parent.style.resize === 'both') {
+                    const {width, height} = parent.getBoundingClientRect();
+                    await game.settings.set(MacroName, properKey + "_width", Math.round(width));
+                    await game.settings.set(MacroName, properKey + "_height", Math.round(height));
+                }
+            }
             val = input.value;
         } else {
             val = input.checked
@@ -135,7 +176,9 @@ let d = new foundry.applications.api.DialogV2({
         /* ignored */
     }
 });
-d.render(true);
+d.render(true).then((dialog) => {
+    dialog.element.querySelector('.ProseMirror').style.background = 'var(--background-color, var(--color-cool-5))';
+});
 
 async function printNotes(formData) {
     let weatherMessageContent = game.settings.get('weather_macro', 'lastWeather').content;
